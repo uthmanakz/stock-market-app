@@ -53,8 +53,8 @@ pipeline {
                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
                                 sh'''
                                 ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'` '
-                                sudo yum install git -y
-                                git clone https://github.com/uthmanakz/pp-inventory.git
+                                sudo yum install git -y ;
+                                git clone https://github.com/uthmanakz/pp-inventory.git ;
                                 git clone https://github.com/uthmanakz/paymentplatform.git'
                                 '''
                             }
