@@ -55,17 +55,17 @@ pipeline {
                                 ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
                                 ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE '
                                 sudo yum install git -y ;
-                                if [! -d "pp-inventory"] ;
+                                if [ ! -d "pp-inventory" ] ;
                                 then
                                    git clone https://github.com/uthmanakz/pp-inventory.git ;
                                 else
                                    echo "pp-inventory.ini directory already exists - skipping :)" ;
                                 fi
-                                if [! -d "paymentplatform"] ;
+                                if [ ! -d "paymentplatform" ] ;
                                 then
                                    git clone https://github.com/uthmanakz/paymentplatform.git ;
                                 else
-                                  echo "paymentplatform directory already exists - skipping :)"
+                                  echo "paymentplatform directory already exists - skipping :)" ;
                                 fi'
                                 '''
                             }
