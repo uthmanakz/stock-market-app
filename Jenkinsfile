@@ -57,14 +57,16 @@ pipeline {
                                 sudo yum install git -y ;
                                 if [! -d "pp-inventory"] ;
                                 then
-                                  git clone https://github.com/uthmanakz/pp-inventory.git ;
+                                   git clone https://github.com/uthmanakz/pp-inventory.git ;
                                 else
-                                  echo "pp-inventory.ini directory already exists - skipping :)" ;
+                                   echo "pp-inventory.ini directory already exists - skipping :)" ;
+                                fi
                                 if [! -d "paymentplatform"] ;
                                 then
-                                  git clone https://github.com/uthmanakz/paymentplatform.git ;
+                                   git clone https://github.com/uthmanakz/paymentplatform.git ;
                                 else
-                                 echo "paymentplatform directory already exists - skipping :)"'
+                                  echo "paymentplatform directory already exists - skipping :)"
+                                fi'
                                 '''
                             }
                         }
