@@ -57,7 +57,7 @@ output "ANSIBLE" {
     }
 
      output "WEB-UBUNTU" {
-    value = aws_instance.web_ubuntu.priavte_ip
+    value = aws_instance.web_ubuntu.private_ip
     }
 
        output "APP-UBUNTU" {
