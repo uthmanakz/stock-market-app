@@ -33,7 +33,7 @@ pipeline {
                 stage ('Installing Ansible') {
                     steps {
                         script {
-                             ssgagent (credentials : ['SSH_PRIVATE_KEY']) {
+                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
                              sh '''
                              ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
                              ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE ' sudo yum install python3 -y ; sudo yum install python3-pip -y ; pip3 install ansible '
