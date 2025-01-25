@@ -1,4 +1,4 @@
-resource  "aws_resource" "web_ubuntu" {
+resource  "aws_instance" "web_ubuntu" {
     ami = "ami-04ba8620fc44e2264"
     instance_type =  "t2.micro"
     key_name = "simbababy"
@@ -7,7 +7,7 @@ resource  "aws_resource" "web_ubuntu" {
     }
 }
 
-resource  "aws_resource" "web_amazon" {
+resource  "aws_instance" "web_amazon" {
     ami = "ami-091f18e98bc129c4e"
     instance_type = "t2.micro"
     key_name = "simbababy"
@@ -16,7 +16,7 @@ resource  "aws_resource" "web_amazon" {
     }
 }
 
-resource  "aws_resource" "app_ubuntu" {
+resource  "aws_instance" "app_ubuntu" {
     ami = "ami-04ba8620fc44e2264"
     instance_type =  "t2.micro"
     key_name = "simbababy"
@@ -25,7 +25,7 @@ resource  "aws_resource" "app_ubuntu" {
     }
 }
 
-resource  "aws_resource" "app_amazon" {
+resource  "aws_instance" "app_amazon" {
     ami = "ami-091f18e98bc129c4e"
     instance_type = "t2.micro"
     key_name = "simbababy"
@@ -35,7 +35,7 @@ resource  "aws_resource" "app_amazon" {
 }
 
 
-resource  "aws_resource" "ansible" {
+resource  "aws_instance" "ansible" {
     ami = "ami-091f18e98bc129c4e"
     instance_type = "t2.micro"
     key_name = "simbababy"
