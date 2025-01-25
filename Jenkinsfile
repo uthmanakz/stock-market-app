@@ -79,10 +79,11 @@ pipeline {
                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
                                 sh '''
                                 ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
-                                WEB-AMAZON=`terraform output | grep WEB-AMAZON | awk -F '"' '{print $2}'`
-                                WEB-UBUNTU=`terraform output | grep WEB-UBUNTU | awk -F '"' '{print $2}'`
-                                ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE " echo "$WEB-AMAZON" > pp-inventory/inventory.ini ;
-                                echo "$WEB-UBUNTU ansible_user=ubuntu" >>  pp-inventory/inventory.ini
+                                WEB_AMAZON=`terraform output | grep WEB-AMAZON | awk -F '"' '{print $2}'`
+                                WEB_UBUNTU=`terraform output | grep WEB-UBUNTU | awk -F '"' '{print $2}'`
+                                ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE " 
+                                echo "$WEB_AMAZON" > pp-inventory/inventory.ini ;
+                                echo "$WEB_UBUNTU ansible_user=ubuntu" >>  pp-inventory/inventory.ini"
                                 '''
                             }
                         }
