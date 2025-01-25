@@ -1,4 +1,8 @@
-resource  "aws_instance" "web_ubuntu" {
+
+provider "aws" {
+    region = "eu-west-2"
+}
+    resource  "aws_instance" "web_ubuntu" {
     ami = "ami-04ba8620fc44e2264"
     instance_type =  "t2.micro"
     key_name = "simbababy"
