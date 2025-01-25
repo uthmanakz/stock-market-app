@@ -73,7 +73,7 @@ pipeline {
                     }
                 }
 
-                stage ('Deploying the web playbook') {
+                stage ('Inserting hosts inside in file') {
                     steps {
                         script {
                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
@@ -84,6 +84,20 @@ pipeline {
                                 ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE " 
                                 echo "$WEB_AMAZON" > pp-inventory/inventory.ini ;
                                 echo "$WEB_UBUNTU ansible_user=ubuntu" >>  pp-inventory/inventory.ini"
+                                scp -o StrictHostKeyChecking=no ansible.cfg ec2-user@$ANSIBLE:~
+                                '''
+                            }
+                        }
+                    }
+                }
+
+                stage ('Deploying web-nodes playbook')  {
+                    steps {
+                        script {
+                            sshagent (credentials : ['SSH_PRIVATE_KEY']) {
+                                sh '''
+                                ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
+                                ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE ' ansible-playbook -i pp-inventory/inventory.ini paymentplatform/web_playbook.yml'
                                 '''
                             }
                         }
