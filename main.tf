@@ -48,3 +48,25 @@ resource  "aws_instance" "ansible" {
     }
 }
 
+output "ANSIBLE" {
+    value = aws_instance.ansible.id 
+    }
+
+    output "WEB-AMAZON" {
+    value = aws_instance.web_amazon.id 
+    }
+
+     output "WEB-UBUNTU" {
+    value = aws_instance.web_ubuntu.id 
+    }
+
+       output "APP-UBUNTU" {
+    value = aws_instance.app_ubuntu.id 
+    }
+
+ output "APP-AMAZON" {
+    value = aws_instance.app_amazon.id 
+    }
+  
+  
+
