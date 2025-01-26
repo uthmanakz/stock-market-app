@@ -86,6 +86,7 @@ pipeline {
                                 WEB_AMAZON=`terraform output | grep WEB-AMAZON | awk -F '"' '{print $2}'`
                                 WEB_UBUNTU=`terraform output | grep WEB-UBUNTU | awk -F '"' '{print $2}'`
                                 ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE " 
+                                echo "[webs]" > pp-inventory/inventory.ini ;
                                 echo "$WEB_AMAZON" >> pp-inventory/inventory.ini ;
                                 echo "$WEB_UBUNTU ansible_user=ubuntu" >>  pp-inventory/inventory.ini"
                                 scp -o StrictHostKeyChecking=no ansible.cfg ec2-user@$ANSIBLE:~
