@@ -127,5 +127,18 @@ pipeline {
                         }
                     }
                 }
+
+                stage ('Deploying app-nodes playbook') {
+                    steps {
+                        script {
+                            sshagent ( credentials : ['SSH_PRIVATE_KEY']) {
+                                sh'''
+                                 ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
+                                 ssh -o StrcitHostKeyChecking=no ec2-user@ANSIBLE ' ansible-playbook -i pp-inventory/inventory.ini paymentplatform/app_playbook.yml'
+                                '''
+                            }
+                        }
+                    }
+                }
             }
         }
