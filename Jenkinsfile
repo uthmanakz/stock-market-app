@@ -91,6 +91,25 @@ pipeline {
                     }
                 }
 
+
+                stage ('Inserting hosts inside in file') {
+                    steps {
+                        script {
+                            sshagent (credentials : ['SSH_PRIVATE_KEY']) {
+                                sh '''
+                                ANSIBLE=`terraform output | grep ANSIBLE | awk -F'"' '{print $2}'`
+                                APP_AMAZON=`terraform output | grep APP-AMAZON | awk -F '"' '{print $2}'`
+                                APP_UBUNTU=`terraform output | grep APP-UBUNTU | awk -F '"' '{print $2}'`
+                                ssh -o StrictHostKeyChecking=no ec2-user@$ANSIBLE " 
+                                echo "[apps]" >> pp-inventory/inventory.ini ;
+                                echo "$APP_AMAZON" >> pp-inventory/inventory.ini ;
+                                echo "$APP_UBUNTU ansible_user=ubuntu" >>  pp-inventory/inventory.ini"
+                                '''
+                            }
+                        }
+                    }
+                }
+
                 stage ('Deploying web-nodes playbook')  {
                     steps {
                         script {
