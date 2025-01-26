@@ -24,6 +24,7 @@ resource  "aws_instance" "app_ubuntu" {
     ami = "ami-091f18e98bc129c4e"
     instance_type =  "t2.micro"
     key_name = "simbababy"
+      vpc_security_group_ids = [aws_security_group.nginx_ingress.id]
     tags = {
         Name = "APP-UBUNTU"
     }
@@ -33,6 +34,7 @@ resource  "aws_instance" "app_amazon" {
     ami = "ami-04ba8620fc44e2264"
     instance_type = "t2.micro"
     key_name = "simbababy"
+      vpc_security_group_ids = aws_security_group.nginx_ingress.id
     tags = {
         Name = "APP-AMAZON"
     }
@@ -43,7 +45,6 @@ resource  "aws_instance" "ansible" {
     ami = "ami-04ba8620fc44e2264"
     instance_type = "t2.micro"
     key_name = "simbababy"
-    vpc_security_group_ids = [aws_security_group.nginx_ingress.id]
     tags = {
         Name = "ANSIBLE"
     }
@@ -72,6 +73,7 @@ resource "aws_security_group" "nginx_ingress" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
  
   }
 
@@ -79,6 +81,7 @@ resource "aws_security_group" "nginx_ingress" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
    
   }
 
