@@ -59,15 +59,15 @@ pipeline {
                                 then
                                    git clone https://github.com/uthmanakz/pp-inventory.git ;
                                 else
-                                   cd pp-inventory ; git pull
-                                   echo "pp-inventory.ini directory already exists - skipping :)" ;
+                                   git -C pp-inventory ; git pull
+                                   echo "pp-inventory.ini directory already exists - git pulling instead :)" ;
                                 fi
                                 if [ ! -d "paymentplatform" ] ;
                                 then
                                    git clone https://github.com/uthmanakz/paymentplatform.git ;
                                 else
-                                  cd paymentplatform ; git pull
-                                  echo "paymentplatform directory already exists - skipping :)" ;
+                                  git -C paymentplatform ; git pull
+                                  echo "paymentplatform directory already exists - git pulling instead :)" ;
                                 fi'
                                 '''
                             }
