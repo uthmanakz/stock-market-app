@@ -59,12 +59,14 @@ pipeline {
                                 then
                                    git clone https://github.com/uthmanakz/pp-inventory.git ;
                                 else
+                                   cd pp-inventory ; git pull
                                    echo "pp-inventory.ini directory already exists - skipping :)" ;
                                 fi
                                 if [ ! -d "paymentplatform" ] ;
                                 then
                                    git clone https://github.com/uthmanakz/paymentplatform.git ;
                                 else
+                                  cd paymentplatform ; git pull
                                   echo "paymentplatform directory already exists - skipping :)" ;
                                 fi'
                                 '''
@@ -73,7 +75,7 @@ pipeline {
                     }
                 }
 
-                stage ('Inserting hosts inside in file') {
+                stage ('Inserting web hosts inside in file') {
                     steps {
                         script {
                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
@@ -92,7 +94,7 @@ pipeline {
                 }
 
 
-                stage ('Inserting hosts inside in file') {
+                stage ('Inserting app hosts inside in file') {
                     steps {
                         script {
                             sshagent (credentials : ['SSH_PRIVATE_KEY']) {
