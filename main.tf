@@ -43,30 +43,56 @@ resource  "aws_instance" "ansible" {
     ami = "ami-04ba8620fc44e2264"
     instance_type = "t2.micro"
     key_name = "simbababy"
+    vpc_security_group_ids = [aws_security_group.nginx_ingress.id]
     tags = {
         Name = "ANSIBLE"
     }
 }
 
-output "ANSIBLE" {
-    value = aws_instance.ansible.public_ip
-    }
 
-    output "WEB-AMAZON" {
-    value = aws_instance.web_amazon.private_ip
-    }
-
-     output "WEB-UBUNTU" {
-    value = aws_instance.web_ubuntu.private_ip
-    }
-
-       output "APP-UBUNTU" {
-    value = aws_instance.app_ubuntu.private_ip
-    }
-
- output "APP-AMAZON" {
-    value = aws_instance.app_amazon.private_ip 
-    }
   
+
+
+resource "aws_security_group" "nginx_ingress" {
+  name        = "nginx-ingress-sg"
   
+
+  # Allow HTTP (port 80) traffic
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # Allow from all IPv4 addresses
+  }
+
+  
+
+  # Allow traffic from all IPv6 addresses (optional)
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+ 
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+   
+  }
+
+  # Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1" # Allow all protocols
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "nginx-ingress-sg"
+  }
+}
+
 
