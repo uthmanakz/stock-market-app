@@ -34,7 +34,7 @@ resource  "aws_instance" "app_amazon" {
     ami = "ami-04ba8620fc44e2264"
     instance_type = "t2.micro"
     key_name = "simbababy"
-      vpc_security_group_ids = aws_security_group.nginx_ingress.id
+      vpc_security_group_ids = [aws_security_group.nginx_ingress.id]
     tags = {
         Name = "APP-AMAZON"
     }
